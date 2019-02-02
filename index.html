@@ -4,29 +4,25 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Page Title</title>
+  <title>Stock Information</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="reset.css">
   <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
 </head>
 
 <body>
-  <div class="container">
-    <h1>Stock Search</h1>
-
-    <!-- stocks will Get Dumped Here -->
-    <div id="stocks-view"></div>
-
-    <!-- Rendered Buttons will get Dumped Here  -->
+  <div class="container-fluid">
     <div id="buttons-view"></div>
 
     <form id="stock-form">
       <label for="stock-input">Add a Stock Symbol</label>
+      <br>
       <input type="text" id="stock-input">
       <br>
-
-      <!-- Button triggers new stock to be added -->
-      <input id="add-stock" type="submit" value="Add a Stock Symbol">
+      <input id="add-stock" class="btn-success" type="submit" value="Submit">
     </form>
+    <div id="stocks-view"></div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="app.js"></script>

@@ -1,6 +1,50 @@
-button,
-div,
-form,
-input {
+body{
+    background-color: rgb(245, 243, 243);
+}
+
+button{
       margin: 10px;
+}
+
+#add-stock{
+    margin-top:5px;
+}
+
+img{
+    margin:10px 0;
+}
+
+#stocks-view{
+    position:relative;
+    width:70%;
+}
+#news-view{
+    width:40%;
+    margin:5px;
+    padding:5px;
+    border:1px solid rgb(201, 198, 198);
+}
+form{
+    position: absolute;
+    margin-right:20px;
+    right: 0;
+}
+
+.articleTitle{
+    font-size:18px;
+    font-weight:bold;
+}
+
+@media screen and (max-width: 768px) {
+
+    form{
+        position: relative;
+        text-align:center;
+    }
+    #news-view{
+        width:70%;
+    }
+    #stocks-view{
+        width:90%;
+    }
 }

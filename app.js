@@ -1,89 +1,82 @@
+var validationList = [];
 const stocks = ['FB', 'NKE', 'GOOG'];
+
+$.ajax({
+  url: `https://api.iextrading.com/1.0/ref-data/symbols`,
+  method: 'GET'
+}).then(function (response) {
+  response.forEach(function (object, key) {
+    validationList.push(object.symbol)
+  });
+});
 
 const displayStockInfo = function () {
   const stock = $(this).attr('data-name');
-  const queryURL = `https://api.iextrading.com/1.0/stock/${stock}/batch?types=quote,news&range=1m&last=1`;
+  const queryURL = `https://api.iextrading.com/1.0/stock/${stock}/batch?types=logo,quote,company`;
 
   $.ajax({
     url: queryURL,
     method: 'GET'
   }).then(function (response) {
-    $('#stocks-view').empty();
-
-    // Creating a div to hold the stock
     const stockDiv = $('<div>').addClass('stock');
-
-    // Storing the company name
+    const stockLogo = response.logo.url;
     const companyName = response.quote.companyName;
-
-    // Creating an element to display the company name
-    const nameHolder = $('<p>').text(`Company Name: ${companyName}`);
-
-    // Appending the name to our stockDiv
-    stockDiv.append(nameHolder);
-
-    // Storing the stock symbol
-    const stockSymbol = response.quote.symbol;
-
-    // Creating an element to display the stock symbol
-    const symbolHolder = $('<p>').text(`Stock Symbol: ${stockSymbol}`);
-
-    // Appending the symbol to our stockDiv
-    stockDiv.append(symbolHolder);
-
-    // Storing the price
     const stockPrice = response.quote.latestPrice;
+    const stockDesc = response.company.description;
+    const ceo = response.company.CEO;
+    const tags = response.company.tags;
+    const nameHolder = $('<h1>').text(`${companyName}`);
+    const ceoHolder = $('<h5>').text(`Current CEO: ${ceo}`);
+    const descHolder = $('<h6>').text(`${stockDesc}`);
+    const priceHolder = $('<h6>').text(`Current Price: $${stockPrice}`);
+    const tagHolder = $('<h6>').text(`Tags: ${tags} `);
 
-    // Creating an element to display the price
-    const priceHolder = $('<p>').text(`Stock Price: $${stockPrice}`);
 
-    // Appending the price to our stockDiv
+    stockDiv.append($('<img>', { id: 'theImg', src: stockLogo }));
+    stockDiv.append(nameHolder);
+    stockDiv.append(ceoHolder);
+    stockDiv.append(descHolder);
     stockDiv.append(priceHolder);
-
-    // Storing the first news summary
-    const companyNews = response.news[0].summary;
-
-    // Creating an element to display the news summary
-    const summaryHolder = $('<p>').text(`News Headline: ${companyNews}`);
-
-    // Appending the summary to our stockDiv
-    stockDiv.append(summaryHolder);
-
-    // Finally adding the stockDiv to the DOM
-    // Until this point nothing is actually displayed on our page
+    stockDiv.append(tagHolder);
     $('#stocks-view').prepend(stockDiv);
-  });
 
+    const APIKey = 'N14O77o1kDhs1YACTRGTTJMurF4E6gfA';
+    const filterQ = 'source:("The New York Times")';
+    var newsURL = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${companyName}&fq=${filterQ}&api-key=${APIKey}`;
+    $.ajax({
+      url: newsURL,
+      method: 'GET'
+    }).then(function (res) {
+      for (let i = 0; i < 10; i++) {
+        const urlLink = res.response.docs[i].web_url;
+        stockDiv.append(`<div id="news-view"> <div class = "articleTitle">${res.response.docs[i].headline.main}</div><br> ${res.response.docs[i].snippet} <br> <a href = "${urlLink}">Article link</a></div>`);
+      }
+    });
+  });
 }
 
-// Function for displaying stock data
 const render = function () {
   $('#buttons-view').empty();
   for (let i = 0; i < stocks.length; i++) {
     const newButton = $('<button>');
     newButton.addClass('stock-btn');
+    newButton.addClass('btn-info');
     newButton.attr('data-name', stocks[i]);
     newButton.text(stocks[i]);
     $('#buttons-view').append(newButton);
   }
 }
 
-// This function handles events where one button is clicked
 const addButton = function (event) {
   event.preventDefault();
   const stock = $('#stock-input').val().trim().toUpperCase();
-  if (stock) {
+  if (validationList.includes(stock)) {
     stocks.push(stock);
   }
   $('#stock-input').val('');
   render();
 }
 
-// Even listener for #add-stock button
 $('#add-stock').on('click', addButton);
-
-// Adding a click event listener to all elements with a class of 'stock-btn'
 $('#buttons-view').on('click', '.stock-btn', displayStockInfo);
-
-// Calling the renderButtons function to display the intial buttons
 render();
