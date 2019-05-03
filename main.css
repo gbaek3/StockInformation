@@ -35,6 +35,12 @@ form{
     font-weight:bold;
 }
 
+.title{
+    text-align:center;
+    background-color:teal;
+    height:55px;
+}
+
 @media screen and (max-width: 768px) {
 
     form{

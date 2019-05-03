@@ -1,5 +1,5 @@
 var validationList = [];
-const stocks = ['FB', 'NKE', 'GOOG'];
+const stocks = ['FB', 'NKE', 'GOOG', 'AAPL'];
 
 $.ajax({
   url: `https://api.iextrading.com/1.0/ref-data/symbols`,
@@ -47,7 +47,7 @@ const displayStockInfo = function () {
       url: newsURL,
       method: 'GET'
     }).then(function (res) {
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 3; i++) {
         const urlLink = res.response.docs[i].web_url;
         stockDiv.append(`<div id="news-view"> <div class = "articleTitle">${res.response.docs[i].headline.main}</div><br> ${res.response.docs[i].snippet} <br> <a href = "${urlLink}">Article link</a></div>`);
       }
