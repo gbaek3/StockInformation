@@ -77,6 +77,12 @@ const addButton = function (event) {
   render();
 }
 
+const clearPage = function (event) {
+  event.preventDefault();
+  $('#stocks-view').empty();
+}
+
 $('#add-stock').on('click', addButton);
+$('#clear-stock').on('click', clearPage);
 $('#buttons-view').on('click', '.stock-btn', displayStockInfo);
 render();
