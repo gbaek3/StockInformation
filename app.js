@@ -12,7 +12,7 @@ $.ajax({
 
 const displayStockInfo = function () {
   const stock = $(this).attr('data-name');
-  const queryURL = `https://api.iextrading.com/1.0/stock/${stock}/batch?types=logo,quote,company`;
+  const queryURL = `https://cloud.iexapis.com/stable/stock/${stock}/batch?types=quote,logo,company&token=pk_960742b4a2a943298fc533080828eaca`;
 
   $.ajax({
     url: queryURL,
