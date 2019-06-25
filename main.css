@@ -1,7 +1,27 @@
-body{
-    background-color: rgb(245, 243, 243);
+#stock-form{
+    font-size:20px;
+    font-weight:bold;
+    color:#E5C454;
+}
+a{
+    color:#46BCDE;
+    text-decoration:underline;
+    font-weight:bold;
 }
 
+body{
+    background-image:url("bg.png");
+    color:white;
+    text-shadow:
+    0.07em 0 black,
+    0 0.07em black,
+    -0.07em 0 black,
+    0 -0.07em black;
+}
+
+h1{
+    color:#E5C454;
+}
 button{
       margin: 10px;
 }
@@ -16,14 +36,16 @@ button{
 
 img{
     margin:10px 0;
+    border:2px solid white;
 }
 
 #stocks-view{
     position:relative;
     width:70%;
 }
+
 #news-view{
-    width:40%;
+    width:50%;
     margin:5px;
     padding:5px;
     border:1px solid rgb(201, 198, 198);
@@ -37,10 +59,12 @@ form{
 .articleTitle{
     font-size:18px;
     font-weight:bold;
+    color:#cce5cc;
 }
 
 .title{
     text-align:center;
+    color:white;
     background-color:teal;
     height:55px;
 }
