@@ -70,7 +70,28 @@ form{
     text-align:center;
     color:white;
     background-color:teal;
-    height:55px;
+
+}
+
+
+@media screen and (max-width: 992px) {
+
+    form{
+        position: relative;
+        text-align:center;
+    }
+    #news-view{
+        width:70%;
+    }
+    #stocks-view{
+        width:90%;
+    }
+    #clear-stock{
+        margin:0 auto;
+        display: flex;
+        justify-content: center;
+        margin-top:10px;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -86,3 +107,4 @@ form{
         width:90%;
     }
 }
+
